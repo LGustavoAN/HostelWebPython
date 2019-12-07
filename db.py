@@ -81,13 +81,3 @@ def create_tables():
     """
     database.connect()
     database.create_tables([Address, Customer, Reservation, Room, Reservation_Room])
-
-def todos_enderecos():
-    """
-        Function for serach all Address
-    """
-    data = Address.select()
-    return data
-def endereco_hostel():
-    data = Address.select().where(Address.id == 1)
-    return data
