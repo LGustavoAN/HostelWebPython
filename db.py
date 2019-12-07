@@ -81,3 +81,90 @@ def create_tables():
     """
     database.connect()
     database.create_tables([Address, Customer, Reservation, Room, Reservation_Room])
+
+def todos_enderecos():
+    """
+        Function for serach all Address
+    """
+    data = Address.select()
+    return data
+def endereco_hostel():
+    data = Address.select().where(Address.id == 1)
+    return data
+#########################################################################################
+####        Inicio DO CODIGO PARA MANIPULAR Customers                   #################
+#########################################################################################
+def todos_clientes_ativos()->[Customer]:
+    """
+        Function for serach all actived Customers
+    """
+    ativo = 'ativo'
+    data = Customer.select().where(Customer.ativo == ativo).join(Address)
+    return data
+
+def todos_clientes_inativos()->[Customer]:
+    """
+        Function for search all inactive Customers
+    """
+    ativo = 'inativo'
+    data = Customer.select().join(Address).where(Customer.ativo == ativo)
+    return data
+
+# Utiliza uma transacao atomica
+@database.atomic()
+def inserir_cliente_endereco(request)->Customer:
+    """
+        Function for insert a new Customer(obj) in table Customer
+        and a Adress for this Customer
+    # Utiliza uma transacao atomica
+    http://docs.peewee-orm.com/en/3.1.0/peewee/transactions.html#decorator
+    """
+    ativo = 'ativo'
+    # Address
+    address = Address()
+    address.address = request.form['address']
+    address.zipcode = request.form['zipcode']
+    address.city = request.form['city']
+    address.state = request.form['state']
+    address.country = request.form['country']
+    address.save()
+    # Customer
+    customer = Customer()
+    customer.title = request.form['title']
+    customer.first_name = request.form['first_name']
+    customer.last_name = request.form['last_name']
+    customer.birthday = request.form['birthday']
+    customer.email = request.form['email']
+    customer.address = address.id
+    customer.ativo = ativo
+    customer.save()
+    return customer
+
+# Utiliza uma transacao atomica
+@database.atomic()
+def atualizar_cliente_endereco(id:int, request)->Customer:
+    """
+        Function for update a existence Customer
+    # Utiliza uma transacao atomica
+    http://docs.peewee-orm.com/en/3.1.0/peewee/transactions.html#decorator
+    """
+
+    # Customer
+    customer = busca_id_cliente(id)
+    if customer:
+        customer.title = request.form['title']
+        customer.first_name = request.form['first_name']
+        customer.last_name = request.form['last_name']
+        customer.birthday = request.form['birthday']
+        customer.email = request.form['email']
+        # Address
+        address = busca_id_endereco(customer.address)
+        address.address = request.form['address']
+        address.zipcode = request.form['zipcode']
+        address.city = request.form['city']
+        address.state = request.form['state']
+        address.country = request.form['country']
+        # Save
+        address.save()
+        customer.save()
+    return customer
