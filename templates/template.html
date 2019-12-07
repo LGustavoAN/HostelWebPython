@@ -1,0 +1,103 @@
+<!doctype html>
+<html lang="pt-br">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap.min.css') }}"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+    <!-- CSS Interno -->
+    <style>
+        .barra-lateral {
+            height: 100%;
+            min-height: 500px;
+        }
+    </style>
+    <!-- CSS Interno Fim -->
+
+    <title>{{ titulo }}</title>
+</head>
+<body>
+<!-- Conteudo -->
+<!-- Grid -->
+<div class="container-fluid">
+    <!-- Row -->
+    <div class="row">
+        <!-- Col -->
+        <div class="col-12">
+            <!-- Jumbotron -->
+            <div class="jumbotron jumbotron-fluid bg-info mb-0 text-center">
+                <div class="container">
+                    <h1 class="display-4">HostelWeb</h1>
+                    <p class="lead">A melhor forma de reservar o seu Hotel.</p>
+                </div>
+            </div>
+            <!-- Jumbotron Fim -->
+        </div>
+        <!-- Col Fim -->
+    </div>
+    <!-- Row Fim -->
+    <!-- Row -->
+    <div class="row">
+        <!-- Col -->
+        <div class="col-2">
+            <!-- Include Sidebar -->
+            {% include 'sidebar.html' %}
+            <!-- Include Sidebar Fim -->
+        </div>
+        <!-- Col Fim -->
+        <!-- Col -->
+        <div class="col-10">
+            <!-- Include Navbar -->
+            {% include 'navbar.html' %}
+            <!-- Include Navbar Fim -->
+            <!-- Include Flash -->
+            {% include 'flash.html' %}
+            <!-- Include Flash Fim -->
+            {% block conteudo %}{% endblock %}
+        </div>
+        <!-- Col Fim -->
+    </div>
+    <!-- Row Fim -->
+    <!-- Row -->
+    <div class="row">
+        <!-- Col -->
+        <div class="col-12">
+            <!-- Footer -->
+            <div class="card text-center border-top-0">
+                <div class="card-header bg-info">
+
+                </div>
+                <div class="card-body">
+                    <h5 class="card-title">Gestão e ciclo de vida da aplicação</h5>
+                    <p class="card-text">Vitor Hugo da Costa Luz.</p>
+                </div>
+                <div class="card-footer bg-info text-muted">
+
+                </div>
+            </div>
+            <!-- Footer Fim -->
+        </div>
+        <!-- Col Fim -->
+    </div>
+    <!-- Row Fim -->
+</div>
+
+<!-- Grid Fim -->
+<!-- Conteudo Fim -->
+<!-- Optional JavaScript -->
+<!-- jQuery first, then Popper.js, then Bootstrap JS -->
+<script src="{{ url_for('static', filename='js/jquery-3.3.1.slim.min.js') }}"
+        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+        crossorigin="anonymous"></script>
+<script src="{{ url_for('static', filename='js/popper.min.js') }}"
+        integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+        crossorigin="anonymous"></script>
+<script src="{{ url_for('static', filename='js/bootstrap.min.js') }}"
+        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+        crossorigin="anonymous"></script>
+</body>
+</html>
