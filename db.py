@@ -168,3 +168,45 @@ def atualizar_cliente_endereco(id:int, request)->Customer:
         address.save()
         customer.save()
     return customer
+
+def busca_id_endereco(id):
+    """
+    Verifica
+    """
+    id = id
+    data = Address.select().where(Address.id == id)
+    return data[0]
+
+def busca_id_cliente(id):
+    """
+    Verifica
+    """
+    id = id
+    data = Customer.select().where(Customer.id == id).join(Address)
+    return data[0]
+
+
+# Ativar Remessa
+def ativar_cliente(id):
+    """
+    Vito
+    """
+    data = busca_id_cliente(id)
+    if data:
+        ativo = 'ativo'
+        data.ativo = ativo
+        data.save()
+        return data
+
+
+# Desativar Remessa
+def desativar_cliente(id):
+    """
+    Vito
+    """
+    data = busca_id_cliente(id)
+    if data:
+        ativo = 'inativo'
+        data.ativo = ativo
+        data.save()
+        return data
