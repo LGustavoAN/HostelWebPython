@@ -210,3 +210,198 @@ def desativar_cliente(id):
         data.ativo = ativo
         data.save()
         return data
+#########################################################################################
+####        Inicio DO CODIGO PARA MANIPULAR ROOMS                       #################
+#########################################################################################
+def todos_room_ativos():
+    """
+    Vito
+    """
+    ativo = 'ativo'
+    data = Room.select().where(Room.ativo == ativo)
+    return data
+
+
+def todos_room_inativos():
+    """
+    Vito
+    """
+    ativo = 'inativo'
+    data = Room.select().where(Room.ativo == ativo)
+    return data
+
+
+@database.atomic()
+def inserir_room(request):
+    """
+    Vito
+    # Utiliza uma transacao atomica
+    http://docs.peewee-orm.com/en/3.1.0/peewee/transactions.html#decorator
+    """
+    ativo = 'ativo'
+    # Room
+    room = Room()
+    room.number = request.form['number']
+    room.dimension = request.form['dimension']
+    room.ativo = ativo
+    room.save()
+    return room
+
+
+def busca_id_room(id:int)->Room:
+    id = id
+    data = Room.select().where(Room.id == id)
+    return data[0]
+
+
+def ativar_room(id:int)->Room:
+    """
+    Vito
+    """
+    data = busca_id_room(id)
+    if data:
+        ativo = 'ativo'
+        data.ativo = ativo
+        data.save()
+        return data
+
+
+def desativar_room(id:int)->Room:
+    """
+    Vito
+    """
+    data = busca_id_room(id)
+    if data:
+        ativo = 'inativo'
+        data.ativo = ativo
+        data.save()
+        return data
+
+
+@database.atomic()
+def atualizar_room(id, request):
+    room = busca_id_room(id)
+    if room:
+        room.number = request.form['number']
+        room.dimension = request.form['dimension']
+        room.save()
+    return room
+#########################################################################################
+####        Inicio DO CODIGO PARA MANIPULAR Reservations                #################
+#########################################################################################
+def todas_reservas_ativas():
+    """
+    Vito
+    """
+    ativo = 'ativo'
+    data = Reservation.select().where(Reservation.ativo == ativo).join(Customer)
+    return data
+
+def todas_reservas_inativas():
+    """
+    Vito
+    """
+    ativo = 'inativo'
+    data = Reservation.select().where(Reservation.ativo == ativo)
+    return data
+
+def busca_id_reservation(id:int)->Reservation:
+    id = id
+    data = Reservation.select().where(Reservation.id == id)
+    return data[0]
+
+
+def busca_reservation_room(id_reservation:int):
+    data = Reservation_Room.select().where(Reservation_Room.reservation_code == id_reservation)
+    return data
+
+@database.atomic()
+def remover_reservation_rooms(id):
+    reservation_rooms = busca_reservation_room(id)
+    for i in reservation_rooms:
+        Reservation_Room.delete_instance(i)
+
+@database.atomic()
+def atualizar_reservation(id:int, request)->Reservation:
+    reservation = busca_id_reservation(id)
+    if reservation:
+        remover_reservation_rooms(id)
+        listRoom = listRooms(request.form['room_id'])
+        reservation.number_of_guests = request.form['number_of_guests']
+        reservation.reservation_date = request.form['reservation_date']
+        reservation.checkin_date = request.form['checkin_date']
+        reservation.checkout_date = request.form['checkout_date']
+        reservation.customer = request.form['customer_id']
+        reservation.save()
+        for i in listRoom:
+            reservation_room = Reservation_Room()
+            reservation_room.reservation_code = reservation.id
+            reservation_room.room_id = i
+            reservation_room.save()
+    return reservation
+
+
+def listRooms(roomString:str)->list:
+    list = []
+    roomString = roomString.split(" ")
+    for i in roomString:
+        list.append(int(i))
+    return list
+
+
+@database.atomic()
+def inserir_reservation(request):
+    """
+    Vito
+    # Utiliza uma transacao atomica
+    http://docs.peewee-orm.com/en/3.1.0/peewee/transactions.html#decorator
+    """
+    ativo = 'ativo'
+    # Room
+    customer_id = int(request.form['customer_id'])
+    listRoom = listRooms(request.form['room_id'])
+    if busca_id_cliente(customer_id) and len(listRoom) > 0:
+        reservation = Reservation()
+        reservation.number_of_guests = request.form['number_of_guests']
+        reservation.checkin_date = request.form['checkin_date']
+        reservation.checkout_date = request.form['checkout_date']
+        reservation.reservation_date = request.form['reservation_date']
+        reservation.ativo = ativo
+        reservation.customer = request.form['customer_id']
+        reservation.save()
+        # atribui reservation_code como igual ao id
+        reservation.reservation_code = reservation.id
+        reservation.save()
+        #cria uma relacao entre reserva e room em uma tabela
+        for i in listRoom:
+            reservation_room = Reservation_Room()
+            reservation_room.reservation_code = reservation.id
+            reservation_room.room_id = i
+            reservation_room.save()
+        return reservation
+
+def desativar_reservation(id:int)->Reservation:
+    """
+    Vito
+    """
+    data = busca_id_reservation(id)
+    if data:
+        ativo = 'inativo'
+        data.ativo = ativo
+        data.save()
+        return data
+
+def ativar_reservation(id:int)->Reservation:
+    """
+    Vito
+    """
+    data = busca_id_reservation(id)
+    if data:
+        ativo = 'ativo'
+        data.ativo = ativo
+        data.save()
+        return data
+
+if __name__ == '__main__':
+    # Quando esse arquivo for executado como main será criada as tabelas de banco de dados
+    create_tables()
