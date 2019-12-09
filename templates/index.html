@@ -1,1 +1,28 @@
-<h1>Hello</h1>
+{% extends 'template.html' %}
+{% block conteudo %}
+    <h1>A Unifal Project</h1>
+    <h2>Application Lifecycle Management Project</h2>
+
+    {% if address %}
+        <div class="table-responsive">
+            <table class="table table-striped table-sm">
+                <thead>
+                <tr>
+                    <th>Address</th>
+                    <th>zipcode</th>
+                    <th>state</th>
+                    <th>country</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for iten in address %}
+                    <td>{{ iten.address }}</td>
+                    <td>{{ iten.zipcode }}</td>
+                    <td>{{ iten.state }}</td>
+                    <td>{{ iten.country }}</td>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    {% endif %}
+{% endblock %}
