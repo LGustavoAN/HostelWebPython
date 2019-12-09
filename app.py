@@ -332,3 +332,5 @@ def reservation_enable(id):
     if data:
         flash(f'Reserve: {data.id},room ativado com sucesso!')
     return redirect(url_for('reservation_inactive'))
+=======
+########################################################################

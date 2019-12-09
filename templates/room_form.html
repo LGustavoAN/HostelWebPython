@@ -1,0 +1,23 @@
+{% extends 'template.html' %}
+{% block conteudo %}
+    <h1>Make a New Room</h1>
+    <!-- Room Formulario -->
+    <form method="POST" action="{{ dados['url_form'] }}">
+        <div class="form-row">
+            <div class="form-group col-md-5">
+                <label for="number">Number</label>
+                <input type="text" class="form-control" id="number" name="number" required="required"
+                        {% if busca %} value="{{ busca.number }}" {% endif %}>
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="form-group col-md-5">
+                <label for="dimension">Dimension</label>
+                <input type="text" class="form-control" id="dimension" name="dimension" required="required"
+                        {% if busca %} value="{{ busca.dimension }}" {% endif %}>
+            </div>
+        </div>
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+    <!-- Room Fim -->
+{% endblock %}
