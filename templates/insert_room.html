@@ -1,0 +1,26 @@
+{% extends 'template.html' %}
+{% block conteudo %}
+    <h1>Um projeto Unifal</h1>
+    <!-- Rooms -->
+    {% if rooms %}
+        <div class="table-responsive">
+            <table class="table table-striped table-sm">
+                <thead>
+                <tr>
+                    <th>number</th>
+                    <th>dimension</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for iten in rooms %}
+                    <tr>
+                        <td>{{ iten.number }}</td>
+                        <td>{{ iten.dimension }}</td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    {% endif %}
+    <!-- Enderecos Fim -->
+{% endblock %}
