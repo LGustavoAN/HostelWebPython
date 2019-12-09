@@ -1,7 +1,7 @@
 from flask import Flask, render_template, url_for, request, flash, redirect
 import db
 
-app = Flask(__name__)
+app = Flask(_name_)
 app.secret_key = """Kazakhstan greatest country in the world
 All other countries are run by little girls
 Kazakhstan number one exporter of potassium"""
@@ -139,3 +139,196 @@ def customer_save(id):
     return redirect(url_for('customer_active'))
 
 ##########################################
+@app.route('/rooms/active')
+def room_active():
+    rooms = db.todos_room_ativos()
+    dados = {}
+    dados['titulo'] = 'Quarto'
+    dados['section_location'] = 'Rooms'
+    dados['url_current'] = 'ativo'
+    dados['url_ativo'] = url_for('room_active')
+    dados['url_inativo'] = url_for('room_inactive')
+    dados['url_criar'] = url_for('room_make')
+    dados['url_editar'] = 'room_edit'
+    dados['url_ativar'] = 'room_enable'
+    dados['url_desativar'] = 'room_disable'
+    dados['url_form'] = '' #url_for('room_insert')
+    return render_template('rooms.html', dados=dados, titulo='Rooms', rooms=rooms)
+
+@app.route('/rooms/inactive')
+def room_inactive():
+    rooms = db.todos_room_inativos()
+    dados = {}
+    dados['titulo'] = 'Quarto'
+    dados['section_location'] = 'Rooms'
+    dados['url_current'] = 'inativo'
+    dados['url_ativo'] = url_for('room_active')
+    dados['url_inativo'] = url_for('room_inactive')
+    dados['url_criar'] = url_for('room_make')
+    dados['url_editar'] = 'room_edit'
+    dados['url_ativar'] = 'room_enable'
+    dados['url_desativar'] = 'room_disable'
+    dados['url_form'] = '' #url_for('room_insert')
+    return render_template('rooms.html', dados = dados, titulo='Rooms', rooms=rooms)
+
+@app.route('/rooms/make')
+def room_make():
+    section_location = 'Make Room'
+    dados = {}
+    dados['titulo'] = 'Quarto'
+    dados['section_location'] = 'Rooms'
+    dados['url_current'] = 'ativo'
+    dados['url_ativo'] = url_for('room_active')
+    dados['url_inativo'] = url_for('room_inactive')
+    dados['url_criar'] = url_for('room_make')
+    dados['url_editar'] = 'room_edit'
+    dados['url_ativar'] = 'room_enable'
+    dados['url_desativar'] = 'room_disable'
+    dados['url_form'] = url_for('room_insert')
+    return render_template('room_form.html', dados=dados, titulo='Rooms', section_location=section_location)
+
+@app.route('/room/insert', methods=['POST'])
+def room_insert():
+    """
+       Vito
+    """
+    data = db.inserir_room(request)
+    if data:
+        flash(f'{data.number} {data.dimension},room criado com sucesso!')
+    return redirect(url_for('room_active'))
+
+@app.route('/room/enable/id/<int:id>')
+def room_enable(id):
+    """
+       Vito
+    """
+    id = int(id)
+    data = db.ativar_room(id)
+    if data:
+        flash(f'Room:{data.number} {data.dimension},room ativado com sucesso!')
+    return redirect(url_for('room_inactive'))
+
+@app.route('/room/disable/id/<int:id>')
+def room_disable(id):
+    """
+       Vito
+    """
+    id = int(id)
+    data = db.desativar_room(id)
+    if data:
+        flash(f'Room:{data.number} {data.dimension}, desativado com sucesso!')
+    return redirect(url_for('room_active'))
+
+@app.route('/room/edit/id/<int:id>')
+def room_edit(id):
+    id = int(id)
+    busca = db.busca_id_room(id)
+    dados = {}
+    dados['titulo'] = 'Quarto'
+    dados['section_location'] = 'Rooms'
+    dados['url_current'] = 'ativo'
+    dados['url_ativo'] = url_for('room_active')
+    dados['url_inativo'] = url_for('room_inactive')
+    dados['url_criar'] = url_for('room_make')
+    dados['url_editar'] = 'room_edit'
+    dados['url_ativar'] = 'room_enable'
+    dados['url_desativar'] = 'room_disable'
+    dados['url_form'] = url_for('room_save', id=busca.id)
+    return render_template('room_form.html', dados=dados, busca=busca)
+
+@app.route('/room/save/id/<int:id>', methods=['POST'])
+def room_save(id):
+    """
+       Vito
+    """
+    id = int(id)
+    data = db.atualizar_room(id, request)
+    if data:
+        flash(f'Room: {data.number} {data.dimension}, editado com sucesso!')
+    return redirect(url_for('room_active'))
+
+########################################################################
+########################################################################
+
+@app.route('/reservation/active')
+def reservation_active():
+    reservas = db.todas_reservas_ativas()
+    dados = {}
+    dados['titulo'] = 'Reservas'
+    dados['section_location'] = 'Reservation'
+    dados['url_current'] = 'ativo'
+    dados['url_ativo'] = url_for('reservation_active')
+    dados['url_inativo'] = url_for('reservation_inactive')
+    dados['url_criar'] = url_for('reservation_make')
+    dados['url_editar'] = 'reservation_edit'
+    dados['url_ativar'] = 'reservation_enable'
+    dados['url_desativar'] = 'reservation_disable'
+    dados['url_form'] = '' #url_for('reservation_save', id=busca.id)
+    return render_template('reservation.html',dados = dados, reservas=reservas)
+
+@app.route('/reservation/inactive')
+def reservation_inactive():
+    reservas = db.todas_reservas_inativas()
+    dados = {}
+    dados['titulo'] = 'Reservas'
+    dados['section_location'] = 'Reservation'
+    dados['url_current'] = 'inativo'
+    dados['url_ativo'] = url_for('reservation_active')
+    dados['url_inativo'] = url_for('reservation_inactive')
+    dados['url_criar'] = url_for('reservation_make')
+    dados['url_editar'] = 'reservation_edit'
+    dados['url_ativar'] = 'reservation_enable'
+    dados['url_desativar'] = 'reservation_disable'
+    dados['url_form'] = '' #url_for('reservation_save', id=busca.id)
+    return render_template('reservation.html',dados = dados, reservas=reservas)
+
+@app.route('/reservation/make')
+def reservation_make():
+    section_location = 'Make Reserv'
+    rooms = db.todos_room_ativos()
+    customers = db.todos_clientes_ativos()
+    dados = {}
+    dados['titulo'] = 'Reservas'
+    dados['section_location'] = 'Reservation'
+    dados['url_current'] = 'inativo'
+    dados['url_ativo'] = url_for('reservation_active')
+    dados['url_inativo'] = url_for('reservation_inactive')
+    dados['url_criar'] = url_for('reservation_make')
+    dados['url_editar'] = 'reservation_edit'
+    dados['url_ativar'] = 'reservation_disable'
+    dados['url_desativar'] = ''  # 'reservation_disable'
+    dados['url_form'] = url_for('reservation_insert')
+    return render_template('reservation_form.html', dados=dados
+                           , section_location=section_location, rooms=rooms, customers=customers)
+
+@app.route('/reservation/insert', methods=['POST'])
+def reservation_insert():
+    """
+           Vito
+    """
+    data = db.inserir_reservation(request)
+    if data:
+        flash(f'Reserva: {data.id},reserva criada com sucesso!')
+    return redirect(url_for('reservation_active'))
+
+@app.route('/room/disenable/id/<int:id>')
+def reservation_disable(id):
+    """
+       Vito
+    """
+    id = int(id)
+    data = db.desativar_reservation(id)
+    if data:
+        flash(f'Reserve: {data.id},room ativado com sucesso!')
+    return redirect(url_for('reservation_active'))
+
+@app.route('/room/enable/id/<int:id>')
+def reservation_enable(id):
+    """
+       Vito
+    """
+    id = int(id)
+    data = db.ativar_reservation(id)
+    if data:
+        flash(f'Reserve: {data.id},room ativado com sucesso!')
+    return redirect(url_for('reservation_inactive'))
