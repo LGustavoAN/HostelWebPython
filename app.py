@@ -1,7 +1,7 @@
 from flask import Flask, render_template, url_for, request, flash, redirect
 import db
 
-app = Flask(_name_)
+app = Flask(__name__)
 app.secret_key = """Kazakhstan greatest country in the world
 All other countries are run by little girls
 Kazakhstan number one exporter of potassium"""
@@ -332,5 +332,47 @@ def reservation_enable(id):
     if data:
         flash(f'Reserve: {data.id},room ativado com sucesso!')
     return redirect(url_for('reservation_inactive'))
-=======
-########################################################################
+
+@app.route('/reservation/edit/id/<int:id>')
+def reservation_edit(id):
+    def reservation_room_str(reservation_rooms)->list(db.Room):
+        list = []
+        string = ""
+        for i in range(len(reservation_rooms)):
+            list.append(reservation_rooms[i].room_id)
+
+            string += reservation_rooms[i].room_id.__str__() + " "
+        print(string)
+        return string
+    id = int(id)
+    busca = db.busca_id_reservation(id)
+    rooms = db.todos_room_ativos()
+    customers = db.todos_clientes_ativos()
+    rooms_id = db.busca_reservation_room(id)
+    rooms_id = reservation_room_str(rooms_id)
+    dados = {}
+    dados['titulo'] = 'Reservation'
+    dados['section_location'] = 'Reservation'
+    dados['url_current'] = 'ativo'
+    dados['url_ativo'] = url_for('reservation_active')
+    dados['url_inativo'] = url_for('reservation_inactive')
+    dados['url_criar'] = url_for('reservation_make')
+    dados['url_editar'] = 'reservation_edit'
+    dados['url_ativar'] = 'reservation_enable'
+    dados['url_desativar'] = 'reservation_disable'
+    dados['url_form'] = url_for('reservation_save', id=busca.id)
+    return render_template('reservation_form.html', dados=dados, busca=busca, rooms=rooms,
+                           customers=customers, rooms_id=rooms_id)
+
+@app.route('/reservation/save/id/<int:id>', methods=['POST'])
+def reservation_save(id):
+    """
+       Vito
+    """
+    id = int(id)
+    data = db.atualizar_reservation(id, request)
+    if data:
+        flash(f'Reservation: {data.reservation_code}, {data.customer}, editado com sucesso!')
+    return redirect(url_for('reservation_active'))
+if __name__ == '__main__':
+    app.run(host='0.0.0.0', port=80, debug=True)
