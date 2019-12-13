@@ -23,3 +23,13 @@ Como o projeto foi feito em PYTHON que tem como característica ser uma linguage
 8. Pedro Paulo Miranda Afonso (<https://github.com/DeixaPoppyOpen>)
 9. Vítor Hugo da Costa Luz (<https://github.com/vitorhugoclz>)
 10. Lucio de Moura Peloso (<https://github.com/luciodemourapeloso>)
+
+## Processo de instalação
+## Bibliotecas obrigatórias
+São necessárias as bibliotecas Flask e Peewee para  instaladas em seu computador
+Flask: (<https://www.palletsprojects.com/p/flask/>)
+Peewee: (<http://docs.peewee-orm.com/en/latest/#>)
+## Passo a passo para rodar o projeto
+rode o script db.py para criar o banco de dados;
+rode o script populate_db.py para popular banco de dados com informações minimas para teste;
+para ver o projeto rodando execute o script app.py abra o navegador de sua preferencia e digite a rota localhost;
