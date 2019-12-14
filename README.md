@@ -11,8 +11,8 @@ O projeto pode ser baixado clicando no botão "Clone or Download" e em seguida e
 ## Bibliotecas obrigatórias
 
 <p>São necessárias as bibliotecas Flask e Peewee para  instaladas em seu computador.</p>
-<p>Flask: <a href = "https://www.palletsprojects.com/p/flask/">documentação da biblioteca flask></p>
-<p>Peewee: <a href = "http://docs.peewee-orm.com/en/latest/#">documentação da biblioteca peewee></p>
+<p>Flask: <a href = "https://www.palletsprojects.com/p/flask/">documentação da biblioteca flask</a></p>
+<p>Peewee: <a href = "http://docs.peewee-orm.com/en/latest/#">documentação da biblioteca peewee</a></p>
 
 ## Passo a passo para rodar o projeto
 <p>rode o script db.py para criar o banco de dados;</p>
