@@ -7,9 +7,17 @@ A preocupação principal do sistema em questão é facilitar as tarefas diária
 
 O projeto pode ser baixado clicando no botão "Clone or Download" e em seguida escolhendo a opção de "Download ZIP". Este projeto foi feito na linguagem PYTHON e portanto, pode ser compilado utilizando um compilador para a linguagem PYTHON.  
 
-## Configuração de desenvolvimento
+## Processo de instalação
+## Bibliotecas obrigatórias
 
-Como o projeto foi feito em PYTHON que tem como característica ser uma linguagem multiplataforma, isso resolve muito dos problemas relacionados com a variabilidade de sistemas operacionais diferentes e etc. Logo, para executar o sistema é necessário apenas que se tenha o interpretador PYTHON instalado na sua máquina, e se desejado para uma interface mais amigável pode-se optar por uma IDE PYTHON, como o PyCharm ou Spyder;
+<p>São necessárias as bibliotecas Flask e Peewee para  instaladas em seu computador.</p>
+<p>Flask: <https://www.palletsprojects.com/p/flask/>;</p>
+<p>Peewee: <http://docs.peewee-orm.com/en/latest/#>;</p>
+
+## Passo a passo para rodar o projeto
+<p>rode o script db.py para criar o banco de dados;</p>
+<p>rode o script populate_db.py para popular banco de dados com informações minimas para teste;</p>
+<p>para ver o projeto rodando execute o script app.py abra o navegador de sua preferencia e digite a rota localhost;</p>
 
 ## Colaboradores
 
@@ -23,15 +31,3 @@ Como o projeto foi feito em PYTHON que tem como característica ser uma linguage
 8. Pedro Paulo Miranda Afonso (<https://github.com/DeixaPoppyOpen>)
 9. Vítor Hugo da Costa Luz (<https://github.com/vitorhugoclz>)
 10. Lucio de Moura Peloso (<https://github.com/luciodemourapeloso>)
-
-## Processo de instalação
-## Bibliotecas obrigatórias
-
-São necessárias as bibliotecas Flask e Peewee para  instaladas em seu computador.
-Flask: <https://www.palletsprojects.com/p/flask/>;
-Peewee: <http://docs.peewee-orm.com/en/latest/#>;
-
-## Passo a passo para rodar o projeto
-rode o script db.py para criar o banco de dados;
-rode o script populate_db.py para popular banco de dados com informações minimas para teste;
-para ver o projeto rodando execute o script app.py abra o navegador de sua preferencia e digite a rota localhost;
