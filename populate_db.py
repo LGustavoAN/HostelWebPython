@@ -71,8 +71,9 @@ ROOMS = [
     {'id': 3, 'number': 3, 'dimension': 12.5},
     {'id': 4, 'number': 4, 'dimension': 25 } ]
 
-inserir_enderecos(ENDERECOS)
-inserir_clientes(CLIENTES)
-inserir_rooms(ROOMS)
-inserir_reservas(RESERVAS)
-inserir_reservas_rooms(RESERVA_ROOM)
+def criar_informacoes():
+    inserir_enderecos(ENDERECOS)
+    inserir_clientes(CLIENTES)
+    inserir_rooms(ROOMS)
+    inserir_reservas(RESERVAS)
+    inserir_reservas_rooms(RESERVA_ROOM)

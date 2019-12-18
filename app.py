@@ -1,5 +1,6 @@
 from flask import Flask, render_template, url_for, request, flash, redirect
 import db
+import populate_db
 
 app = Flask(__name__)
 app.secret_key = """Kazakhstan greatest country in the world
@@ -375,4 +376,7 @@ def reservation_save(id):
         flash(f'Reservation: {data.reservation_code}, {data.customer}, editado com sucesso!')
     return redirect(url_for('reservation_active'))
 if __name__ == '__main__':
+    if not(db.existe_banco_dados()):
+        db.create_tables()
+        populate_db.criar_informacoes()
     app.run(host='0.0.0.0', port=80, debug=True)

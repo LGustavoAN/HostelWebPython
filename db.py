@@ -1,3 +1,5 @@
+import os
+
 from peewee import SqliteDatabase, Model, CharField, IntegerField, ForeignKeyField, DateTimeField, DateField, \
     DecimalField, FloatField
 
@@ -5,6 +7,8 @@ from peewee import SqliteDatabase, Model, CharField, IntegerField, ForeignKeyFie
 # Connect to a SQLite local database.
 # database = SqliteDatabase('sucellus.db')
 # SQLite database using WAL journal mode and 64MB cache.
+import populate_db
+
 database = SqliteDatabase('hostel.db', pragmas={
     'journal_mode': 'wal',
     'cache_size': -1024 * 64})
@@ -391,6 +395,7 @@ def desativar_reservation(id:int)->Reservation:
         data.save()
         return data
 
+
 def ativar_reservation(id:int)->Reservation:
     """
     Vito
@@ -402,6 +407,27 @@ def ativar_reservation(id:int)->Reservation:
         data.save()
         return data
 
+def delete_banco_dados():
+    path = os.getcwd()
+    diretorio = os.listdir(path)
+    for file in diretorio:
+        if file == "hostel.db":
+            os.remove(file)
+
+def existe_banco_dados() -> bool:
+    """verifica se existe um arquivo de banco de dados com nome ride_dote.db"""
+    path = os.getcwd()
+    diretorio = os.listdir(path)
+    for file in diretorio:
+        if file == "hostel.db":
+            return True
+    return False
+
 if __name__ == '__main__':
     # Quando esse arquivo for executado como main será criada as tabelas de banco de dados
     create_tables()
+
+    if existe_banco_dados():
+        delete_banco_dados()
+    create_tables()
+    populate_db.criar_informacoes()
