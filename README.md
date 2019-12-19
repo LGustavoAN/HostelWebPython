@@ -15,9 +15,8 @@ O projeto pode ser baixado clicando no botão "Clone or Download" e em seguida e
 <p>Peewee: <a href = "http://docs.peewee-orm.com/en/latest/#">documentação da biblioteca peewee</a></p>
 
 ## Passo a passo para rodar o projeto
-<p>rode o script db.py para criar o banco de dados;</p>
-<p>rode o script populate_db.py para popular banco de dados com informações minimas para teste;</p>
-<p>para ver o projeto rodando execute o script app.py abra o navegador de sua preferencia e digite a rota localhost;</p>
+<p> Rode o script app.py e abra o navegador de sua preferência digitando o link "localhost", indicamos uso do Chrome. Caso tenha algum problema para renderizar o HTML recomendamos utilizar o comando CTRL + F5, para atualizar a pagina e limpar os cookies do link.
+<p> Para rodar o script varia segundo os SO mas no Win basta tem o interpretador instalado e executar o código, em linux para ir na pasta e executar via terminal com comando python3 app.py. Em ambos os casos são necessárias as bibliotecas Flask e Peewee instaladas entre os pacote da linguagem.
 
 ## Colaboradores
 
